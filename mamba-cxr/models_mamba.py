@@ -4,7 +4,10 @@ import torch.nn as nn
 from functools import partial
 from torch import Tensor
 from typing import Optional
+<<<<<<< HEAD
 from torch.nn import LayerNorm
+=======
+>>>>>>> upstream/main
 
 from timm.models.vision_transformer import VisionTransformer, _cfg
 from timm.models.registry import register_model
@@ -27,6 +30,7 @@ import random
 try:
     from mamba_ssm.ops.triton.layernorm import RMSNorm, layer_norm_fn, rms_norm_fn
 except ImportError:
+<<<<<<< HEAD
     # Fallback: Define a pure PyTorch RMSNorm implementation
     import torch.nn as nn
     class RMSNorm(nn.Module):
@@ -41,6 +45,10 @@ except ImportError:
             return self.weight * x
 
     layer_norm_fn, rms_norm_fn = None, None
+=======
+    RMSNorm, layer_norm_fn, rms_norm_fn = None, None, None
+
+>>>>>>> upstream/main
 __all__ = [
     'vim_tiny_patch16_224', 'vim_small_patch16_224', 'vim_base_patch16_224',
     'vim_tiny_patch16_384', 'vim_small_patch16_384', 'vim_base_patch16_384',
@@ -174,6 +182,7 @@ def create_block(
         bimamba_type = "v1"
     if ssm_cfg is None:
         ssm_cfg = {}
+<<<<<<< HEAD
     ssm_cfg['use_fast_path'] = False
     factory_kwargs = {"device": device, "dtype": dtype}
     # Remove unsupported custom arguments 'bimamba_type', 'if_devide_out', and 'init_layer_scale'
@@ -186,6 +195,13 @@ def create_block(
 
     norm_cls = partial(
         effective_norm_cls, eps=norm_epsilon, **factory_kwargs
+=======
+    factory_kwargs = {"device": device, "dtype": dtype}
+    mixer_cls = partial(Mamba, layer_idx=layer_idx, bimamba_type=bimamba_type, if_devide_out=if_devide_out,
+                        init_layer_scale=init_layer_scale, **ssm_cfg, **factory_kwargs)
+    norm_cls = partial(
+        nn.LayerNorm if not rms_norm else RMSNorm, eps=norm_epsilon, **factory_kwargs
+>>>>>>> upstream/main
     )
     block = Block(
         d_model,
@@ -652,7 +668,11 @@ def vim_tiny_patch16_stride8_224_bimambav2_final_pool_mean_abs_pos_embed_with_mi
 @register_model
 def vim_small_patch16_224_bimambav2_final_pool_mean_abs_pos_embed_with_midclstok_div2(pretrained=False, **kwargs):
     model = VisionMamba(
+<<<<<<< HEAD
         patch_size=16, embed_dim=384, depth=24, rms_norm=True, residual_in_fp32=True, fused_add_norm=False,
+=======
+        patch_size=16, embed_dim=384, depth=24, rms_norm=True, residual_in_fp32=True, fused_add_norm=True,
+>>>>>>> upstream/main
         final_pool_type='mean', if_abs_pos_embed=True, if_rope=False, if_rope_residual=False, bimamba_type="v2",
         if_cls_token=True, if_devide_out=True, use_middle_cls_token=True, **kwargs)
     model.default_cfg = _cfg()
