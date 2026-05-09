@@ -43,7 +43,7 @@ bash ./mamba-cxr/scripts/pt-vim-s.sh
 
 A step-by-step notebook is provided to reproduce the pipeline on Google Colab without access to the NLST dataset. It uses **ChestMNIST** as a publicly available proxy for multi-view chest X-rays, covering installation, data preparation, fine-tuning, evaluation, and prediction visualization.
 
-[![Open In Colab]([https://colab.research.google.com/assets/colab-badge.svg](https://colab.research.google.com/drive/1A5hHw8h0x_Dj1AZ6ZE9xsWtpBdBLCd83?authuser=3))](YOUR_COLAB_LINK_HERE)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1A5hHw8h0x_Dj1AZ6ZE9xsWtpBdBLCd83?authuser=3)
 
 ## Citation
 
